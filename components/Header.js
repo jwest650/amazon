@@ -49,7 +49,10 @@ const Header = () => {
                         </p>
                         <p className="font-bold">Accounts & List</p>
                     </div>
-                    <div className="cursor-pointer hover:border p-2 rounded ">
+                    <div
+                        onClick={() => router.push("/orders")}
+                        className="cursor-pointer hover:border p-2 rounded "
+                    >
                         <p>return </p>
                         <p className="font-bold">& orders</p>
                     </div>

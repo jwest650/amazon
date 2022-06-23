@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-typos */
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Banner from "../components/Banner";
@@ -31,10 +32,12 @@ export async function getServerSideProps(context) {
     const product = await fetch("https://fakestoreapi.com/products").then(
         (res) => res.json()
     );
+    const session = await getSession(context);
 
     return {
         props: {
             product,
+            session,
         },
     };
 }

@@ -42,7 +42,7 @@ const CheckoutProduct = ({
                     activeColor={"yellow"}
                 />
                 <p className="mt-2 my-2 line-clamp-3 text-sm">{description}</p>
-                <Currency value={price} currency={"GHC"} />
+                <Currency value={price} currency={"USD"} />
             </div>
             <div className="flex flex-col space-y-2 my-auto justify-self-end">
                 <button className="button " onClick={addItemToBasket}>

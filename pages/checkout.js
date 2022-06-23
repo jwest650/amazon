@@ -1,3 +1,5 @@
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -7,11 +9,32 @@ import { Currency } from "react-tender";
 import CheckoutProduct from "../components/CheckoutProduct";
 import Header from "../components/Header";
 import { selectedItem, totalPrice } from "../slices/BasketReducer";
+
+const stripePromise = loadStripe(process.env.stripe_public_key);
 const Checkout = () => {
     const item = useSelector(selectedItem);
-    const { data: session } = useSession();
     const total = useSelector(totalPrice);
-    const createCheckout = () => {};
+    const { data: session } = useSession();
+
+    const createCheckoutSession = async () => {
+        const stripe = await stripePromise;
+        const checkoutSession = await axios.post(
+            "/api/create-checkout-session",
+            {
+                item,
+                email: session.user.email,
+            }
+        );
+
+        const result = await stripe.redirectToCheckout({
+            sessionId: checkoutSession.data.id,
+        });
+
+        if (result.error) {
+            alert(result.error.message);
+        }
+    };
+
     return (
         <div className="bg-gray-100">
             <Head>
@@ -58,11 +81,11 @@ const Checkout = () => {
                         <h2 className="whitespace-nowrap capitalize ">
                             subtotal ({item.length} items){" "}
                             <span className="font-bold">
-                                <Currency value={total} currency={"GHC"} />
+                                <Currency value={total} currency={"USD"} />
                             </span>
                         </h2>
                         <button
-                            onClick={createCheckout}
+                            onClick={createCheckoutSession}
                             role={"link"}
                             disabled={!session}
                             className={`button mt-2  ${

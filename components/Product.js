@@ -42,7 +42,7 @@ function Product({ id, title, price, description, category, image, rate }) {
             </div>
             <p className="text-xs my-2 line-clamp-2">{description}</p>
             <div>
-                <Currency value={price} currency={"GHC"} />
+                <Currency value={price} currency={"USD"} />
             </div>
             <button className="button" onClick={addItemToBasket}>
                 add to basket
