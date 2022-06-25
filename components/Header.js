@@ -37,9 +37,9 @@ const Header = () => {
                 </div>
 
                 {/* right */}
-                <div className="flex text-white items-center text-sm space-x-6 capitalize mx-6 ">
+                <div className="flex text-white items-center text-xs md:text-sm space-x-6 capitalize mx-6 ">
                     <div
-                        className="cursor-pointer hover:border p-2 rounded"
+                        className="cursor-pointer md:hover:border md:p-2 rounded"
                         onClick={() => (session ? signOut() : signIn())}
                     >
                         <p>
@@ -51,7 +51,7 @@ const Header = () => {
                     </div>
                     <div
                         onClick={() => router.push("/orders")}
-                        className="cursor-pointer hover:border p-2 rounded "
+                        className="cursor-pointer md:hover:border md:p-2 rounded "
                     >
                         <p>return </p>
                         <p className="font-bold">& orders</p>
